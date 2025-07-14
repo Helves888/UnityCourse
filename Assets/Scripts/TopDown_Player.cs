@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class TopDown_Player : MonoBehaviour
 {
-    
-    private const string HORIZONTAL_AXIS = "Horizontal"; 
+    private const string HORIZONTAL_AXIS = "Horizontal";
     private const string VERTICAL_AXIS = "Vertical";
 
     [SerializeField] private float _speedX = 1f;
@@ -19,7 +16,6 @@ public class TopDown_Player : MonoBehaviour
     private bool _isDashing = false;
     private float _dashTime = 0f;
 
-
     private void DashInput()
     {
         if (Input.GetKeyDown(KeyCode.Space) && ((_horizontal_direction != 0 || _vertical_direction != 0)))
@@ -28,15 +24,16 @@ public class TopDown_Player : MonoBehaviour
             _dashTime = 0.2f;
         }
     }
+
     private void Update()
     {
-        _horizontal_direction = Input.GetAxis("Horizontal");
-        _vertical_direction = Input.GetAxis("Vertical");
+        _horizontal_direction = Input.GetAxis(HORIZONTAL_AXIS);
+        _vertical_direction = Input.GetAxis(VERTICAL_AXIS);
+
         Vector2 moveDirection = new Vector2(_horizontal_direction, _vertical_direction).normalized;
         DashInput();
-        if (_isDashing) 
+        if (_isDashing)
         {
-          
             transform.position += (Vector3)(moveDirection * _speedX * _speedDash * Time.deltaTime);
             _dashTime -= Time.deltaTime;
             if (_dashTime <= 0f)
@@ -46,13 +43,10 @@ public class TopDown_Player : MonoBehaviour
         }
         else
         {
-          
+
             transform.position += (Vector3)(moveDirection * _speedX * Time.deltaTime);
 
         }
-    
-
-
     }
-       
-  }
+
+}
